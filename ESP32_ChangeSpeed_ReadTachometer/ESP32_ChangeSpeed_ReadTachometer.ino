@@ -2,7 +2,7 @@
 
 // Pin Definitions
 const int PWM_PIN = 18;
-const int TACH_PIN = 19;
+const int TACH_PIN = 27;
 
 // Fan Specifications
 const int MAX_FAN_RPM = 5000; 
@@ -18,7 +18,6 @@ volatile unsigned long pulseCount = 0;
 volatile unsigned long lastPulseTime = 0;
 const unsigned long DEBOUNCE_TIME_US = 4000; // 4ms lockout (~5000 RPM max limit safety)
 
-// Replace your old tachISR() function with this one:
 void IRAM_ATTR tachISR() {
   unsigned long currentTime = esp_timer_get_time(); // Get precise time in microseconds
   if (currentTime - lastPulseTime >= DEBOUNCE_TIME_US) {
@@ -38,9 +37,9 @@ void setup() {
 
 void loop() {
   // Target duty cycles we WANT the fan to see (25%, 50%, 75%, 100%)
-  int targetDutyCycles[] = {64, 128, 192, 255}; 
+  int targetDutyCycles[] = {64, 128, 192, 255, 192, 128}; 
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 6; i++) {
     int targetDuty = targetDutyCycles[i];
     float targetPercent = (targetDuty / 255.0) * 100.0;
     
