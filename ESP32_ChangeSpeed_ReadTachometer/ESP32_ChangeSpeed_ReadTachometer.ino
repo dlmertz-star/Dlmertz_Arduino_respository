@@ -1,6 +1,6 @@
 // Pin definitions
 const int PWM_PIN = 18;  
-const int TACH_PIN = 19;  
+const int TACH_PIN = 27;  
 const int POT_PIN = 34;  
  
 // PWM settings
